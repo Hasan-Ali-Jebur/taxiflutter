@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_country_picker/flutter_country_picker.dart';
 import 'package:flutter_verification_code_input/flutter_verification_code_input.dart';
-
-
-
-import '../uidata.dart';
-import 'letgo.dart';
+import 'package:uiflutterjubertaxi/uidata.dart';
+import 'package:uiflutterjubertaxi/widget/mybutton.dart';
 
 class VerifyOTPPage extends StatefulWidget {
   VerifyOTPPage({Key key}) : super(key: key);
 
   @override
-  _PhoneInputPageState createState() {
-    return _PhoneInputPageState();
+  _VerifyOTPPageState createState() {
+    return _VerifyOTPPageState();
   }
 }
 
-class _PhoneInputPageState extends State<VerifyOTPPage> {
-  Country _selected;
-
+class _VerifyOTPPageState extends State<VerifyOTPPage> {
   @override
   void initState() {
     super.initState();
@@ -29,77 +23,64 @@ class _PhoneInputPageState extends State<VerifyOTPPage> {
     super.dispose();
   }
 
-  Widget _buildPageContent(BuildContext context) {
-
-    return Container(
-        padding: EdgeInsets.all(20.0),
-        //color: Colors.grey.shade800,
-        child: ListView(children: <Widget>[
-          Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-
-                Text(
-                  "Verify phone number",
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 26, bottom: 26),
-                  child: Text(
-                      "Check your SMS messages. We've sent you the PIN at +84939123456"),
-                ),
-                Center(
-                  child: VerificationCodeInput(
-                    keyboardType: TextInputType.number,
-                    length: 4,
-                    onCompleted: (String value) {
-                      //...
-                      print(value);
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 30, top: 30),
-                  child: Row(
-                    children: <Widget>[
-                      Text("Didn't receive SMS? ",
-                          style: TextStyle(color: Colors.grey)),
-                      Text(
-                        "Resend Code",
-                        style: TextStyle(color: UIData.PrimaryColor),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: FlatButton(
-                      color: UIData.PrimaryColor,
-                      textColor: Colors.white,
-                      disabledColor: Colors.grey,
-                      disabledTextColor: Colors.black,
-                      padding: EdgeInsets.all(8.0),
-                      splashColor: Colors.blueAccent,
-                      onPressed: () {
-                        Navigator.of(context).pushReplacement(
-                            new MaterialPageRoute(builder: (context) {
-                          return new LetGoPage();
-                        }));
-                      },
-                      child: Text(
-                        "VERIFY",
-                        style: TextStyle(fontSize: 20.0),
-                      ),
-                    )),
-              ])
-        ]));
-  }
-
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return _buildPageContent(context);
+    return Scaffold(
+        backgroundColor: UIData.myBackground,
+        appBar: new AppBar(
+          backgroundColor: UIData.myBackground,
+          elevation: 0,
+          leading: new IconButton(
+            icon: new Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
+        body: Container(
+          padding: EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                "Phone Vertification",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0,16,0,16),
+                child: Text("Enter your OTP code here"),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 40, 20, 50),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    VerificationCodeInput(
+                      keyboardType: TextInputType.number,
+                      length: 4,
+                      onCompleted: (String value) {
+                        //...
+                        print(value);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: MyButton(
+                        caption: "VERIFY NOW",
+                        onPressed: () {
+                          print("Tapped Me");
+                        }),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ));
   }
 }

@@ -6,8 +6,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uiflutterjubertaxi/model/walkobj.dart';
 import 'package:uiflutterjubertaxi/page/login.dart';
 import 'package:uiflutterjubertaxi/page/loginsignup.dart';
+import 'package:uiflutterjubertaxi/widget/mybutton.dart';
+import 'package:uiflutterjubertaxi/widget/swiper_pagination.dart';
 
 import '../uidata.dart';
+import 'letgo.dart';
 
 class WalkthroughScreen extends StatefulWidget {
   final SharedPreferences prefs;
@@ -40,11 +43,10 @@ class _WalkthroughScreenState extends State<WalkthroughScreen> {
     'assets/images/a1.png',
     'assets/images/a2.png',
     'assets/images/a3.png',
-    'assets/images/a4.png',
   ];
   int _currentIndex = 0;
   final SwiperController _swiperController = SwiperController();
-  final int _pageCount = 4;
+  final int _pageCount = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +58,11 @@ class _WalkthroughScreenState extends State<WalkthroughScreen> {
             index: _currentIndex,
             loop: false,
             pagination: new SwiperPagination(
-              margin: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 40.0),
-              builder: new DotSwiperPaginationBuilder(
-                  //color: Colors.white30,
-                  activeColor: UIData.PrimaryAssentColor,
-                  size: 6.5,
-                  activeSize: 8.0),
-            ),
+                margin: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 40.0),
+                builder: CustomPaginationBuilder(
+                    activeSize: Size(10.0, 20.0),
+                    size: Size(10.0, 15.0),
+                    color: Colors.grey.shade600)),
             control: SwiperControl(
               iconPrevious: null,
               iconNext: null,
@@ -87,35 +87,33 @@ class _WalkthroughScreenState extends State<WalkthroughScreen> {
       alignment: Alignment.bottomCenter,
       child: Container(
         //color: Colors.black26,
-        height: 90,
+        height: 190,
         padding: EdgeInsets.all(20),
         width: MediaQuery.of(context).size.width,
         child: Container(
           //padding: EdgeInsets.only(bottom: 28),
           //color: Colors.green,
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              GestureDetector(
-                  onTap: () => _skip(),
-                  child: Text(
-                    "Skip",
-                    style: TextStyle(color: Colors.white),
-                  )),
-              Container(
-                  color: Colors.transparent,
-                  height: 40,
-                  width: 90,
-                  child: RaisedButton(
-                    textColor: Colors.white,
-                    color: Colors.orange,
-                    child: _currentIndex == 3 ? Text("FINISH") : Text("NEXT"),
-                    onPressed: () => _gotonexxt(),
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    ),
-                  ))
+              (_currentIndex < 2)
+                  ? GestureDetector(
+                      onTap: () => _skip(),
+                      child: Text(
+                        "Skip",
+                        style: TextStyle(color: Colors.grey),
+                      ))
+                  :
+              MyButton(
+                  caption: "GET STARTED",
+                  onPressed: () {
+                    print("Tapped Me");
+                    Navigator.of(context)
+                        .pushReplacement(new MaterialPageRoute(builder: (context) {
+                      return new LetGoPage();
+                    }));
+                  })
             ],
           ),
         ),
@@ -150,18 +148,9 @@ class _WalkthroughScreenState extends State<WalkthroughScreen> {
     print("click");
     Navigator.of(context)
         .pushReplacement(new MaterialPageRoute(builder: (context) {
-      return new LoginSignupPage();
+      return new LetGoPage();
     }));
   }
 
-  _gotonexxt() {
-    if (_currentIndex < _pageCount - 1)
-      _swiperController.next();
-    else {
-      Navigator.of(context)
-          .pushReplacement(new MaterialPageRoute(builder: (context) {
-        return new LoginSignupPage();
-      }));
-    }
-  }
+
 }

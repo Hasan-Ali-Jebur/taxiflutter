@@ -7,7 +7,6 @@ import 'package:uiflutterjubertaxi/uidata.dart';
 import 'model/counter.dart';
 import 'page/bookpage.dart';
 import 'page/home.dart';
-import 'page/intro4.dart';
 import 'page/letgo.dart';
 import 'page/login.dart';
 import 'page/onboarding.dart';
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => LandingPage(),
+        '/': (context) => SignupPage(),
         //'/': (context) => MyHomePage(),
         '/login': (context) => LoginSignupPage(),
         //'/home': (context) => ProfileFillPage(),
@@ -73,7 +72,7 @@ class _LandingPageState extends State<LandingPage> {
     return Stack(
       children: <Widget>[
         Image.asset(
-          'assets/images/login.png',
+          'assets/images/splash1.png',
           width: size.width,
           height: size.height,
           fit: BoxFit.fill,
@@ -88,7 +87,7 @@ class _LandingPageState extends State<LandingPage> {
   checkIfAuthenticated() async {
     await Future.delayed(Duration(
         seconds:
-            3)); // could be a long running task, like a fetch from keychain
+            10)); // could be a long running task, like a fetch from keychain
     Navigator.pushReplacementNamed(context, '/intro');
 
     return true;

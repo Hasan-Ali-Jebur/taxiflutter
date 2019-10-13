@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:uiflutterjubertaxi/page/phoneinput.dart';
-import 'package:uiflutterjubertaxi/page/signup.dart';
+import 'package:flutter_country_picker/flutter_country_picker.dart';
+import 'package:uiflutterjubertaxi/page/verifyotp.dart';
 import 'package:uiflutterjubertaxi/uidata.dart';
-
-import 'letgo.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -16,8 +13,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool hidepass = true;
-  final TextEditingController textEditingController = new TextEditingController();
+  Country _selected = Country.VN;
+  final TextEditingController textEditingController =
+      new TextEditingController();
 
   @override
   void initState() {
@@ -31,218 +29,121 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _builbottom = Container(
-        margin: EdgeInsets.only(bottom: 40),
-        //color: Colors.grey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.end,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Text("Or connect using social account"),
-            ),
-            SizedBox(
-              width: double.infinity,
-              height: 40,
-              child: RaisedButton.icon(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(2.0)),
-                color: Colors.indigo,
-                icon: Icon(
-                  FontAwesomeIcons.facebook,
-                  color: Colors.white,
-                ),
-                label: Expanded(
-                  child: Center(
-                    child: Text(
-                      "Connect with Facebook",
-                      style: TextStyle(color: Colors.white),
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          Image.asset(
+            'assets/images/bg1.png',
+            width: size.width,
+            height: size.height / 3,
+            fit: BoxFit.fill,
+          ),
+          Container(
+            height: 430,
+            padding: EdgeInsets.only(
+                top: 160.0, left: 10.0, right: 10.0, bottom: 10.0),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(children: <Widget>[
+                      Text("Login",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 32)),
+                      Text(
+                        " with your ",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ]),
+                    Text(
+                      "phone number",
+                      style: TextStyle(fontSize: 30),
                     ),
-                  ),
-                ),
-                onPressed: () {},
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              width: double.infinity,
-              height: 40,
-              child:
-                  //loginBtn
-                  RaisedButton.icon(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2.0),
-                  side: BorderSide(
-                    color: UIData.PrimaryColor,
-                    width: 1.0,
-                  ),
-                ),
-                color: Colors.white,
-                icon: Icon(
-                  Icons.phone,
-                  color: UIData.PrimaryColor,
-                ),
-                label: Expanded(
-                  child: Center(
-                    child: Text(
-                      "Connect with Phone number",
-                      style: TextStyle(color: UIData.PrimaryColor),
+                    SizedBox(
+                      height: 16,
                     ),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                      new MaterialPageRoute(builder: (context) {
-                    return new PhoneInputPage();
-                  }));
-                },
-              ),
-            ),
-          ],
-        ));
-
-    Widget _buildPageContent() {
-      return Container(
-          padding: EdgeInsets.all(20.0),
-          //color: Colors.grey.shade800,
-          child: ListView(children: <Widget>[
-            Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "Log in",
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8, top: 30),
-                    child: Text("EMAIL", style: TextStyle(color: Colors.grey)),
-                  ),
-                  TextField(
-                    controller: textEditingController,
-                    decoration: InputDecoration(
-                        suffixIcon: GestureDetector(
-                          onTap: (){
-                            print("clear");
-                            textEditingController.clear();
-
-                          },
-                          child: Icon(
-                            Icons.clear,
-                            color: Colors.black26,
-                          ),
-                        ),
-                        hintText: "Email",
-                        hintStyle: TextStyle(color: Colors.black26),
-                        //filled: true,
-                        //fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.blueGrey, width: 5.0),
-                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 16.0)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8, top: 8),
-                    child:
-                        Text("PASSWORD", style: TextStyle(color: Colors.grey)),
-                  ),
-                  TextField(
-                    obscureText: hidepass,
-                    decoration: InputDecoration(
-                        suffixIcon: GestureDetector(
-                          onTap: (){
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        CountryPicker(
+                          showDialingCode: true,
+                          showName: false,
+                          onChanged: (Country country) {
                             setState(() {
-                              hidepass = !hidepass;
+                              _selected = country;
                             });
                           },
-                          child: Icon(
-                            Icons.remove_red_eye,
-                            color: Colors.black26,
+                          selectedCountry: _selected,
+                        ),
+                        Flexible(
+                          child: TextField(
+                            keyboardType: TextInputType.phone,
+                            controller: textEditingController,
+                            decoration: InputDecoration(
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    print("clear");
+                                    textEditingController.clear();
+                                  },
+                                  child: Icon(
+                                    Icons.clear,
+                                    color: Colors.black26,
+                                  ),
+                                ),
+                                hintText: "Phone number",
+                                hintStyle: TextStyle(color: Colors.black26),
+                                //filled: true,
+                                //fillColor: Colors.white,
+
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: UIData.myBackground, width: 5.0),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(4.0)),
+                                ),
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 8.0)),
                           ),
                         ),
-
-                        hintText: "Password",
-                        hintStyle: TextStyle(color: Colors.black26),
-                        //filled: true,
-                        //fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.blueGrey, width: 5.0),
-                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 16.0)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 40, top: 16),
-                    child: Text("Forgot password",
-                        style: TextStyle(color: UIData.PrimaryColor)),
-                  ),
-                  //loginbtn,
-                  SizedBox(
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    SizedBox(
                       width: double.infinity,
-                      height: 50,
                       child: FlatButton(
-                        color: UIData.PrimaryColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(8.0)),
+                        color: UIData.Bassic,
                         textColor: Colors.white,
                         disabledColor: Colors.grey,
                         disabledTextColor: Colors.black,
-                        padding: EdgeInsets.all(8.0),
-                        splashColor: Colors.blueAccent,
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacement(new MaterialPageRoute(builder: (context) {
-                            return new LetGoPage();
-                          }));
+                        padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
+                        splashColor: UIData.Bassic,
+                        onPressed: () => {
+                          Navigator.of(context).push(
+                              new MaterialPageRoute(builder: (context) {
+                                return new VerifyOTPPage();
+                              }))
                         },
                         child: Text(
-                          "LOG IN",
+                          "NEXT",
                           style: TextStyle(fontSize: 20.0),
                         ),
-                      )),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  _builbottom
-                ]),
-          ]));
-    }
-
-    return Scaffold(
-        appBar: new AppBar(
-          title: Align(
-              alignment: Alignment.centerRight,
-              child: GestureDetector(
-                  onTap: () => _gosignup(),
-                  child: new Text(
-                    'Sign up',
-                    style: TextStyle(color: UIData.PrimaryColor),
-                  ))),
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: new IconButton(
-            icon: new Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ),
-        body: _buildPageContent());
-  }
-
-  _gosignup() {
-    print("click");
-    Navigator.of(context)
-        .pushReplacement(new MaterialPageRoute(builder: (context) {
-      return new SignupPage();
-    }));
+          )
+        ],
+      ),
+    );
   }
 }

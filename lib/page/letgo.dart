@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uiflutterjubertaxi/page/home.dart';
+import 'package:uiflutterjubertaxi/page/login.dart';
+import 'package:uiflutterjubertaxi/widget/mybutton.dart';
 
 import '../uidata.dart';
 
@@ -18,33 +20,42 @@ class LetGoPage extends StatelessWidget {
             height: size.height,
             fit: BoxFit.fill,
           ),
-          Center(
-            child: SizedBox(
-                width: 200,
-                height: 50,
-                child: FlatButton(
-                  color: UIData.Bassic,
-                  textColor: Colors.white,
-                  disabledColor: Colors.grey,
-                  disabledTextColor: Colors.black,
-                  padding: EdgeInsets.all(8.0),
-                  splashColor: Colors.blueAccent,
-                  onPressed: () {
-//                    Navigator.of(context)
-//                        .pushReplacement(new MaterialPageRoute(builder: (context) {
-//                      return new HomePage();
-//                    }));
-                    Navigator.of(context)
-                        .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
-                  },
-                  child: Text(
-                    "GET STARTED",
-                    style: TextStyle(fontSize: 20.0,color: UIData.PrimaryColor),
-                  ),
-                )),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 100),
+            child: Container(
+              width: size.width,
+              //color: Colors.green,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Spacer(),
+                  MyButton(
+                      caption: "USE MY LOCATION",
+                      onPressed: () {
+                        print("Tapped Me");
+                      }),
+                  SizedBox(height: 24,),
+                  GestureDetector(
+                      onTap: () => {
+                            Navigator.of(context).pushReplacement(
+                                new MaterialPageRoute(builder: (context) {
+                              return new LoginPage();
+                            }))
+                          },
+                      child: Text(
+                        "Go to Login",
+                        style: TextStyle(fontSize: 18),
+                      ))
+                ],
+              ),
+            ),
           ),
         ],
       ),
     );
   }
+
+
 }
