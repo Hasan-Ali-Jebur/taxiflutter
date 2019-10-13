@@ -7,6 +7,7 @@ import 'package:uiflutterjubertaxi/uidata.dart';
 import 'model/counter.dart';
 import 'page/bookpage.dart';
 import 'page/home.dart';
+import 'page/homedriver.dart';
 import 'page/letgo.dart';
 import 'page/login.dart';
 import 'page/onboarding.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => SignupPage(),
+        '/': (context) => HomeDriverPage(),
         //'/': (context) => MyHomePage(),
         '/login': (context) => LoginSignupPage(),
         //'/home': (context) => ProfileFillPage(),
