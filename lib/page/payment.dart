@@ -20,7 +20,7 @@ class PaymementPage extends StatefulWidget {
 class _SelectDesPageState extends State<PaymementPage> {
 
   final myController1 = TextEditingController();
-  int num =0;
+  int num =1;
 
   void initState() {
     super.initState();
@@ -52,7 +52,7 @@ class _SelectDesPageState extends State<PaymementPage> {
               child: Row(
                 children: <Widget>[
                   //Icon(Icons.check,color: UIData.PrimaryColor ),
-                  Text("Done",style: TextStyle(color: UIData.PrimaryColor,fontWeight: FontWeight.bold),)
+                  Text("Done",style: TextStyle(color: UIData.Bassic,fontWeight: FontWeight.bold),)
                 ],
               ),
             ),
@@ -72,22 +72,7 @@ class _SelectDesPageState extends State<PaymementPage> {
               ),
             ),
 
-            InkWell(
-              onTap: ()=>{
-                _dochange(0)
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  child: ListTile(
-                    leading: Image.asset('assets/images/cash.png'),
-                    title: Text ("Cash payment"),
-                    subtitle: Text ("Default"),
-                    trailing: (num==0) ?Icon(Icons.check_box, color: UIData.PrimaryColor,):null,
-                  ),
-                ),
-              ),
-            ),
+
             InkWell(
               onTap: ()=>{
                 _dochange(1)
@@ -144,7 +129,7 @@ class _SelectDesPageState extends State<PaymementPage> {
                   height: 50,
                   child: FlatButton(
                     color: UIData.PrimaryColor,
-                    textColor: Colors.white,
+                    textColor: UIData.Bassic,
                     padding: EdgeInsets.all(8.0),
                     //splashColor: UIData.PrimaryColor,
                     onPressed: () {},

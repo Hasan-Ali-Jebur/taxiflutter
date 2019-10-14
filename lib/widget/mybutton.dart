@@ -18,9 +18,7 @@ class MyButton extends StatelessWidget {
       disabledTextColor: Colors.black,
       padding: EdgeInsets.fromLTRB(24,8,24,8),
       splashColor: UIData.Bassic,
-      onPressed: () {
-        onPressed;
-      },
+      onPressed: onPressed,
       child: Text(
         caption,
         style: TextStyle(fontSize: 20.0),

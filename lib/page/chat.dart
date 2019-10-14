@@ -48,18 +48,18 @@ class _ChatTwoPageState extends State<ChatTwoPage> {
             child: ListTile(
               leading: CircleAvatar(
                 backgroundImage: ExactAssetImage(
-                  avatars[1],
+                  avatars[0],
                 ),
                 //radius: 10.0,
               ),
-              title: Text("Taxi driver"),
-              subtitle: Text("ST1707 - Toyota Vios"),
+              title: Text("Trinh Xuan Nhi",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+              //subtitle: Text("ST1707 - Toyota Vios"),
             )),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: new IconButton(
           icon: new Icon(
-            Icons.arrow_back_ios,
+            Icons.arrow_back,
             color: Colors.black,
           ),
           onPressed: () => Navigator.of(context).pop(),

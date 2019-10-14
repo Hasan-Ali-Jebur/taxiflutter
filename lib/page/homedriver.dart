@@ -5,10 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mdi/mdi.dart';
+import 'package:uiflutterjubertaxi/page/gotopickup.dart';
+import 'package:uiflutterjubertaxi/page/myride.dart';
 import 'package:uiflutterjubertaxi/uidata.dart';
 import 'package:uiflutterjubertaxi/widget/clipper.dart';
 import 'package:uiflutterjubertaxi/widget/loader2.dart';
 import 'package:uiflutterjubertaxi/widget/mybutton.dart';
+
+import 'mywallet.dart';
 
 class HomeDriverPage extends StatefulWidget {
   HomeDriverPage({Key key}) : super(key: key);
@@ -24,7 +28,7 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
   Completer<GoogleMapController> _controller = Completer();
   bool isoff = true;
   var isLoading = true;
-  int trangthai = 1;
+  int trangthai = 0;
   final Color primary = Colors.white;
   final Color active = Colors.grey.shade800;
   final Color divider = Colors.grey.shade600;
@@ -77,7 +81,7 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
         position: _lastMapPosition,
 
         //icon: BitmapDescriptor.defaultMarker,
-        icon: BitmapDescriptor.fromAsset("assets/images/navi.png"),
+        icon: BitmapDescriptor.fromAsset("assets/images/navi96.png"),
       ));
     });
   }
@@ -245,7 +249,8 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
             ),
             subtitle: Text(
               "Cash payment",
-              style: TextStyle(color: UIData.PrimaryColor),
+              style: TextStyle(
+                  color: UIData.PrimaryColor, fontWeight: FontWeight.bold),
             ),
             trailing: Column(
               children: <Widget>[
@@ -294,11 +299,16 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     GestureDetector(
-                        // onTap: () => _skip(),
+                        onTap: () =>  {
+                          print("click"),
+                              setState(() {
+                                trangthai = 0;
+                              })
+                            },
                         child: Text(
-                      "Ignore",
-                      style: TextStyle(color: Colors.grey, fontSize: 18),
-                    )),
+                          "Ignore",
+                          style: TextStyle(color: Colors.grey),
+                        )),
                     SizedBox(
                       width: 32,
                     ),
@@ -306,6 +316,13 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
                         caption: "Accept",
                         onPressed: () {
                           print("Tapped Me");
+                          setState(() {
+                            trangthai = 0;
+                          });
+                          Navigator.of(context)
+                              .push(new MaterialPageRoute(builder: (context) {
+                            return new GotoPickupPage();
+                          }));
                         }),
                   ],
                 )
@@ -377,20 +394,22 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
                         fontWeight: FontWeight.w600),
                   ),
                   Container(
-                    //height: 30,
-                    //width: 150,
-                    //color: Colors.green,
-                   // alignment: Alignment.topCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.star, color: UIData.PrimaryColor,),
-                        Text ("Gold member")
-                      ],
-                    )
-                  ),
+                      //height: 30,
+                      //width: 150,
+                      //color: Colors.green,
+                      // alignment: Alignment.topCenter,
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.star,
+                        color: UIData.PrimaryColor,
+                      ),
+                      Text("Gold member")
+                    ],
+                  )),
                   SizedBox(height: 30.0),
-                  _buildRow(Mdi.history, "Booking", goid: 1),
+                  _buildRow(Mdi.walletOutline, "My Wallet", goid: 1),
                   _buildDivider(),
                   _buildRow(Mdi.decagramOutline, "Promotion", goid: 2),
                   _buildDivider(),
@@ -405,6 +424,12 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
                       showBadge: true, goid: 5),
                   _buildDivider(),
                   _buildRow(Icons.headset, "Support", goid: 6),
+                  _buildDivider(),
+                  Container(
+                      color: UIData.PrimaryColor,
+                      child: _buildRow(
+                          Icons.directions_car, "New booking (Demo)",
+                          goid: 100)),
                   _buildDivider(),
                 ],
               ),
@@ -483,7 +508,9 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
               elevation: 0,
               leading: new IconButton(
                 icon: new Icon(Icons.menu, color: UIData.Bassic),
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () {
+                  _key.currentState.openDrawer();
+                },
               ),
               actions: <Widget>[
                 CupertinoSwitch(
@@ -492,7 +519,7 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
                   onChanged: (bool value) {
                     setState(() {
                       isoff = value;
-                      trangthai = 1;
+
                     });
                   },
                 ),
@@ -529,51 +556,31 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
   }
 
   _goto(int goid) {
-    /* print("go ${goid}");
+    print("go ${goid}");
     Navigator.of(context).pop(); //close drawer
     switch (goid) {
       case 1:
         {
           Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-            return MyRidePage();
+            return MyWalletPage();
           }));
         }
         break;
       case 2:
         {
           Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-            return PromoPage();
+            return MyRidePage();
           }));
         }
         break;
-      case 3:
+
+      case 100:
         {
-          Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-            return FavoritePage();
-          }));
+          setState(() {
+            trangthai = 1;
+          });
         }
         break;
-      case 4:
-        {
-          Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-            return PaymementPage();
-          }));
-        }
-        break;
-      case 5:
-        {
-          Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-            return NotificationPage();
-          }));
-        }
-        break;
-      case 6:
-        {
-          Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-            return SupportPage();
-          }));
-        }
-        break;
-    }*/
+    }
   }
 }
