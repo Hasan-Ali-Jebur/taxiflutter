@@ -13,8 +13,8 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<NotificationPage> {
-  List<String> list1 = ["Promotion","Message from Juber app","Message from Juber app"];
-  List<String> list2 = ["10% off everyday this week","Thanks for ride with Juber app","You have just unlock your promotion"];
+  List<String> list1 = ["Promotion","Message from Aber app","Message from Aber app"];
+  List<String> list2 = ["10% off everyday this week","Thanks for ride with Aber app","You have just unlock your promotion"];
 
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _FavoritePageState extends State<NotificationPage> {
   }
   Widget _buildItem(int i) {
     return ListTile(
-      leading: Icon(Mdi.bellOutline,color: UIData.PrimaryColor,),
+      leading: Icon(Mdi.bellOutline,color: UIData.PrimaryColor,size: 32,),
       title: Text(list1[i],style: TextStyle(fontWeight: FontWeight.bold),),
       subtitle: Text(list2[i]),
     );

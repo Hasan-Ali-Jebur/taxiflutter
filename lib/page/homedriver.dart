@@ -7,11 +7,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mdi/mdi.dart';
 import 'package:uiflutterjubertaxi/page/gotopickup.dart';
 import 'package:uiflutterjubertaxi/page/myride.dart';
+import 'package:uiflutterjubertaxi/page/notifacation.dart';
+import 'package:uiflutterjubertaxi/page/setting.dart';
+import 'package:uiflutterjubertaxi/page/support.dart';
 import 'package:uiflutterjubertaxi/uidata.dart';
 import 'package:uiflutterjubertaxi/widget/clipper.dart';
 import 'package:uiflutterjubertaxi/widget/loader2.dart';
 import 'package:uiflutterjubertaxi/widget/mybutton.dart';
 
+import 'history.dart';
 import 'mywallet.dart';
 
 class HomeDriverPage extends StatefulWidget {
@@ -157,7 +161,7 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
             BoxShadow(
               color: Colors.black,
               offset: Offset(1.0, 6.0),
-              blurRadius: 15.0,
+              blurRadius: 5.0,
             ),
           ],
           borderRadius: BorderRadius.only(
@@ -333,15 +337,19 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
   }
 
   Widget _buildthongbao() {
-    return Container(
-      color: UIData.PrimaryAssentColor,
-      child: ListTile(
-        leading: Icon(Mdi.carOff),
-        title: Text(
-          "You are offline !",
-          style: TextStyle(fontWeight: FontWeight.bold),
+    return AnimatedOpacity(
+      opacity: isoff ? 0.0 : 1.0,
+      duration: Duration(milliseconds: 500),
+      child: Container(
+        color: UIData.PrimaryAssentColor,
+        child: ListTile(
+          leading: Icon(Mdi.carOff),
+          title: Text(
+            "You are offline !",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          subtitle: Text("Go online to start accepting jobs"),
         ),
-        subtitle: Text("Go online to start accepting jobs"),
       ),
     );
   }
@@ -411,19 +419,17 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
                   SizedBox(height: 30.0),
                   _buildRow(Mdi.walletOutline, "My Wallet", goid: 1),
                   _buildDivider(),
-                  _buildRow(Mdi.decagramOutline, "Promotion", goid: 2),
-                  _buildDivider(),
-                  _buildRow(Mdi.heartOutline, "My favorites", goid: 3),
-                  _buildDivider(),
-//                  _buildRow(Mdi.bellOutline, "Notifications",
-//                      showBadge: true),
-
-                  _buildRow(Mdi.creditCardOutline, "My payment", goid: 4),
+                  _buildRow(Mdi.history, "History", goid: 2),
                   _buildDivider(),
                   _buildRow(Mdi.bellOutline, "Notification",
-                      showBadge: true, goid: 5),
+                      showBadge: true, goid: 3),
                   _buildDivider(),
-                  _buildRow(Icons.headset, "Support", goid: 6),
+
+
+                  _buildRow(Mdi.settingsOutline, "Setting", goid: 4),
+                  _buildDivider(),
+
+                  _buildRow(Icons.headset, "Support", goid: 5),
                   _buildDivider(),
                   Container(
                       color: UIData.PrimaryColor,
@@ -518,7 +524,7 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
                   value: isoff,
                   onChanged: (bool value) {
                     setState(() {
-                      isoff = value;
+                      isoff = !isoff;
 
                     });
                   },
@@ -541,11 +547,12 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
               SafeArea(
                 child: Column(
                   children: <Widget>[
-                    isoff
-                        ? SizedBox(
-                            height: 1,
-                          )
-                        : _buildthongbao(),
+//                    isoff
+//                        ? SizedBox(
+//                            height: 1,
+//                          )
+//                        : _buildthongbao(),
+                    _buildthongbao(),
                     Spacer(),
                     if (trangthai == 0) _buildTrangthai0(),
                     if (trangthai == 1) _buildTrangthai1(),
@@ -569,7 +576,28 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
       case 2:
         {
           Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-            return MyRidePage();
+            return HistoryPage();
+          }));
+        }
+        break;
+      case 3:
+        {
+          Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+            return NotificationPage();
+          }));
+        }
+        break;
+      case 4:
+        {
+          Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+            return SettingPage();
+          }));
+        }
+        break;
+      case 5:
+        {
+          Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+            return SupportPage();
           }));
         }
         break;
