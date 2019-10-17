@@ -27,7 +27,8 @@ class HomeDriverPage extends StatefulWidget {
   }
 }
 
-class _HomeDriverPageState extends State<HomeDriverPage> {
+class _HomeDriverPageState extends State<HomeDriverPage>
+    with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   Completer<GoogleMapController> _controller = Completer();
   bool isoff = true;
@@ -44,6 +45,9 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
   Geolocator _geolocator;
   Position _position;
 
+  AnimationController controller;
+  Animation<Offset> offset;
+
   @override
   void initState() {
     super.initState();
@@ -59,6 +63,12 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
         .listen((Position position) {
       _position = position;
     });
+
+    controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 4));
+
+    offset = Tween<Offset>(begin: Offset.zero, end: Offset(0.0, 1.0))
+        .animate(controller);
   }
 
   @override
@@ -220,120 +230,124 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
   }
 
   Widget _buildTrangthai1() {
-    return Container(
-        //padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: Colors.black,
-                offset: Offset(1.0, 6.0),
-                blurRadius: 15.0,
+    return SlideTransition(
+      position: offset,
+      child: Container(
+          //padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: Colors.black,
+                  offset: Offset(1.0, 6.0),
+                  blurRadius: 15.0,
+                ),
+              ],
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0)),
+              color: UIData.myBackground),
+          child: Column(children: <Widget>[
+            ListTile(
+              leading: Container(
+                height: double.infinity,
+                // margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 10.0),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image(
+                      image: ExactAssetImage(
+                        'assets/images/user.jpeg',
+                      ),
+                    )),
               ),
-            ],
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.0),
-                topRight: Radius.circular(20.0)),
-            color: UIData.myBackground),
-        child: Column(children: <Widget>[
-          ListTile(
-            leading: Container(
-              height: double.infinity,
-              // margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 10.0),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image(
-                    image: ExactAssetImage(
-                      'assets/images/user.jpeg',
-                    ),
-                  )),
-            ),
-            title: Text(
-              "Trinh Xuan Nhi",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            subtitle: Text(
-              "Cash payment",
-              style: TextStyle(
-                  color: UIData.PrimaryColor, fontWeight: FontWeight.bold),
-            ),
-            trailing: Column(
-              children: <Widget>[
-                Text(
-                  "\$25",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-                ),
-                Text(
-                  "2,2 Km",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(16),
-            width: double.infinity,
-            color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "PICK UP",
-                  style: TextStyle(color: Colors.grey),
-                ),
-                Text(
-                  "Ninh Kieu Riverside hotel",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                  child: Divider(
-                    height: 1,
+              title: Text(
+                "Trinh Xuan Nhi",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(
+                "Cash payment",
+                style: TextStyle(
+                    color: UIData.PrimaryColor, fontWeight: FontWeight.bold),
+              ),
+              trailing: Column(
+                children: <Widget>[
+                  Text(
+                    "\$25",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                   ),
-                ),
-                Text(
-                  "DROP OFF",
-                  style: TextStyle(color: Colors.grey),
-                ),
-                Text(
-                  "Luu Huu Phuoc park",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    GestureDetector(
-                        onTap: () =>  {
-                          print("click"),
-                              setState(() {
-                                trangthai = 0;
-                              })
-                            },
-                        child: Text(
-                          "Ignore",
-                          style: TextStyle(color: Colors.grey),
-                        )),
-                    SizedBox(
-                      width: 32,
-                    ),
-                    MyButton(
-                        caption: "Accept",
-                        onPressed: () {
-                          print("Tapped Me");
-                          setState(() {
-                            trangthai = 0;
-                          });
-                          Navigator.of(context)
-                              .push(new MaterialPageRoute(builder: (context) {
-                            return new GotoPickupPage();
-                          }));
-                        }),
-                  ],
-                )
-              ],
+                  Text(
+                    "2,2 Km",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ],
+              ),
             ),
-          )
-        ]));
+            Container(
+              padding: EdgeInsets.all(16),
+              width: double.infinity,
+              color: Colors.white,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "PICK UP",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  Text(
+                    "Ninh Kieu Riverside hotel",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                    child: Divider(
+                      height: 1,
+                    ),
+                  ),
+                  Text(
+                    "DROP OFF",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  Text(
+                    "Luu Huu Phuoc park",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      GestureDetector(
+                          onTap: () => {
+                                print("click"),
+                                setState(() {
+                                  trangthai = 0;
+                                }),
+                                //controller.reverse()
+                              },
+                          child: Text(
+                            "Ignore",
+                            style: TextStyle(color: Colors.grey),
+                          )),
+                      SizedBox(
+                        width: 32,
+                      ),
+                      MyButton(
+                          caption: "Accept",
+                          onPressed: () {
+                            print("Tapped Me");
+                            setState(() {
+                              trangthai = 0;
+                            });
+                            Navigator.of(context)
+                                .push(new MaterialPageRoute(builder: (context) {
+                              return new GotoPickupPage();
+                            }));
+                          }),
+                    ],
+                  )
+                ],
+              ),
+            )
+          ])),
+    );
   }
 
   Widget _buildthongbao() {
@@ -424,11 +438,8 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
                   _buildRow(Mdi.bellOutline, "Notification",
                       showBadge: true, goid: 3),
                   _buildDivider(),
-
-
                   _buildRow(Mdi.settingsOutline, "Setting", goid: 4),
                   _buildDivider(),
-
                   _buildRow(Icons.headset, "Support", goid: 5),
                   _buildDivider(),
                   Container(
@@ -525,7 +536,6 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
                   onChanged: (bool value) {
                     setState(() {
                       isoff = !isoff;
-
                     });
                   },
                 ),
@@ -554,8 +564,10 @@ class _HomeDriverPageState extends State<HomeDriverPage> {
 //                        : _buildthongbao(),
                     _buildthongbao(),
                     Spacer(),
-                    if (trangthai == 0) _buildTrangthai0(),
-                    if (trangthai == 1) _buildTrangthai1(),
+                    if (trangthai == 0)
+                      _buildTrangthai0(),
+                    if (trangthai == 1)
+                      _buildTrangthai1(),
                   ],
                 ),
               ),

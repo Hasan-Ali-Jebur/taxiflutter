@@ -74,7 +74,7 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
                     child: MyButton(
                         caption: "VERIFY NOW",
                         onPressed: () {
-                          print("Tapped Me");
+                          Navigator.pushReplacementNamed(context, '/home');
                         }),
                   ),
                 ],
