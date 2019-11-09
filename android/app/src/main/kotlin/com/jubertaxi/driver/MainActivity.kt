@@ -1,4 +1,4 @@
-package com.jubertaxi.uiflutterjubertaxi
+package com.jubertaxi.driver
 
 import android.os.Bundle
 
