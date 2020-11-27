@@ -10,6 +10,12 @@ class UIData {
   static const myBackgroundlight =  Color(0xFFF8F9FD);
   static const Color transparentbg1 = Color(0x0FD3211E);
 
+
+
+
+
+
+
   static const keySearchMap =  'AIzaSyCfM70LVnmu_IqV5rWlIK7PivCh56ND6DA';
   static const keyGeoMap =  "AIzaSyCfM70LVnmu_IqV5rWlIK7PivCh56ND6DA";
   static const keyDirectionMap =  "AIzaSyCfM70LVnmu_IqV5rWlIK7PivCh56ND6DA";
