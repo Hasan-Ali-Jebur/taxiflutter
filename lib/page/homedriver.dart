@@ -363,10 +363,10 @@ class _HomeDriverPageState extends State<HomeDriverPage>
         child: ListTile(
           leading: Icon(Mdi.carOff),
           title: Text(
-            "You are offline !",
+            "انت الان مشغول",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          subtitle: Text("Go online to start accepting jobs"),
+          subtitle: Text("اضغط على الزر اعلاه لتفعيل استقبال الحجوزات"),
         ),
       ),
     );
@@ -606,12 +606,12 @@ class _HomeDriverPageState extends State<HomeDriverPage>
   Widget build(BuildContext context) {
     // TODO: implement build
     return WillPopScope(
-        //onWillPop: _onWillPop,
+      //onWillPop: _onWillPop,
         child: Scaffold(
             key: _key,
             drawer: _buildDrawer(),
             appBar: new AppBar(
-              title: isoff ? Text('Online') : Text('Offline'),
+              title: isoff ? Text('متاح') : Text('مشغول'),
               centerTitle: true,
               backgroundColor: Colors.white,
               elevation: 0,
@@ -622,15 +622,19 @@ class _HomeDriverPageState extends State<HomeDriverPage>
                 },
               ),
               actions: <Widget>[
-                CupertinoSwitch(
-                  activeColor: UIData.PrimaryColor,
-                  value: isoff,
-                  onChanged: (bool value) {
-                    setState(() {
-                      isoff = !isoff;
-                    });
-                  },
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child:  CupertinoSwitch(
+                    activeColor: UIData.PrimaryColor,
+                    value: isoff,
+                    onChanged: (bool value) {
+                      setState(() {
+                        isoff = !isoff;
+                      });
+                    },
+                  ),
                 ),
+
               ],
             ),
             body: Stack(children: <Widget>[
