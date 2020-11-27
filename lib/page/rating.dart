@@ -88,7 +88,7 @@ class _driverCommingPageState extends State<RatingPage> {
                               "Taxi driver",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            RatingBar(
+                            RatingBar.builder(
 
                               initialRating: 4,
                               itemSize: 20.0,
@@ -160,7 +160,7 @@ class _driverCommingPageState extends State<RatingPage> {
                           ),
                         ),
                         SizedBox(height: 24,),
-                        RatingBar(
+                        RatingBar.builder(
                           //initialRating: 4,
                           itemSize: 32.0,
                           direction: Axis.horizontal,

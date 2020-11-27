@@ -438,7 +438,7 @@ class _HomeDriverPageState extends State<HomeDriverPage>
                   _buildRow(Mdi.bellOutline, "Notification",
                       showBadge: true, goid: 3),
                   _buildDivider(),
-                  _buildRow(Mdi.settingsOutline, "Setting", goid: 4),
+                  _buildRow(Mdi.cogs, "Setting", goid: 4),
                   _buildDivider(),
                   _buildRow(Icons.headset, "Support", goid: 5),
                   _buildDivider(),

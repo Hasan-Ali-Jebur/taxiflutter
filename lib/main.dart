@@ -104,7 +104,7 @@ class MyApp2 extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: ChangeNotifierProvider<Counter>(
-        builder: (_) => Counter(0),
+        create: (_) => Counter(0),
         child: HomePageTest(),
       ),
       //initialRoute: '/',
