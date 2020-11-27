@@ -6,7 +6,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mdi/mdi.dart';
 import 'package:uiflutterjubertaxi/page/gotopickup.dart';
-import 'package:uiflutterjubertaxi/page/myride.dart';
 import 'package:uiflutterjubertaxi/page/notifacation.dart';
 import 'package:uiflutterjubertaxi/page/setting.dart';
 import 'package:uiflutterjubertaxi/page/support.dart';
@@ -15,7 +14,7 @@ import 'package:uiflutterjubertaxi/widget/clipper.dart';
 import 'package:uiflutterjubertaxi/widget/loader2.dart';
 import 'package:uiflutterjubertaxi/widget/mybutton.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'history.dart';
 import 'mywallet.dart';
 
@@ -81,15 +80,6 @@ class _HomeDriverPageState extends State<HomeDriverPage>
     _controller.complete(controller);
 
     setState(() {
-//      _markers.add(Marker(
-//        // This marker id can be anything that uniquely identifies each marker.
-//        markerId: MarkerId(_lastMapPosition.toString()),
-//        position: _lastMapPosition,
-//
-//        icon: BitmapDescriptor.defaultMarker,
-//        //icon: BitmapDescriptor.fromAsset("assets/images/car.png"),
-//      ));
-
       _markers.add(Marker(
         // This marker id can be anything that uniquely identifies each marker.
         markerId: MarkerId(_lastMapPosition.toString()),
