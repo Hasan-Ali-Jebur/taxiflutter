@@ -28,11 +28,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        DefaultCupertinoLocalizations.delegate
+      ],
+      supportedLocales: [
+        Locale("ar", "AE"), // OR Locale('ar', 'AE') OR Other RTL locales
+      ],
+      locale: Locale("ar", "AE"), // OR Locale('ar', 'AE') OR Other RTL locales,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         //primarySwatch: PrimaryColor,
-        primaryColor: UIData.PrimaryColor,
+          primaryColor: UIData.PrimaryColor,
+          fontFamily: 'El_Messiri'
       ),
       initialRoute: '/',
       routes: {
