@@ -194,45 +194,42 @@ class _HomeDriverPageState extends State<HomeDriverPage>
                 ),
               ),
               title: Text(
-                "Jeetebe",
+                "حسن الحلاق",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              subtitle: Text("Basic level"),
+              subtitle: RatingBar.builder(
+                initialRating: 3,
+                minRating: 1,
+
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemSize: 25,
+                itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onRatingUpdate: (rating) {
+                  print(rating);
+                },
+              ),
               trailing: Column(
                 children: <Widget>[
                   Text(
                     "25",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19, fontFamily: 'Roboto'),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Roboto"),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 6),
-                    child: Text(
-                      "يوماً",
-                      style: TextStyle(fontSize:18, color: Colors.grey),
-                    ),
+                  Text(
+                    "يوم",
+                    style: TextStyle(color: Colors.grey),
                   ),
                 ],
               ),
             ),
-            Container(
-              decoration: new BoxDecoration(
-                color: UIData.PrimaryColor,
-                borderRadius: new BorderRadius.all(const Radius.circular(8.0)),
-              ),
-              padding: EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  _buildItem(Mdi.clockOutline, "10.2", "HOURS ONLINE"),
-                  _buildItem(Mdi.gauge, "30", "TOTAL DISTANCE"),
-                  _buildItem(Mdi.clipboardOutline, "20", "TOTAL JOBS"),
-                ],
-              ),
-            )
           ],
         ));
   }
-
   Widget _buildTrangthai1() {
     return SlideTransition(
       position: offset,
