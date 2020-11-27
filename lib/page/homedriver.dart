@@ -14,6 +14,7 @@ import 'package:uiflutterjubertaxi/uidata.dart';
 import 'package:uiflutterjubertaxi/widget/clipper.dart';
 import 'package:uiflutterjubertaxi/widget/loader2.dart';
 import 'package:uiflutterjubertaxi/widget/mybutton.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'history.dart';
 import 'mywallet.dart';
@@ -368,7 +369,7 @@ class _HomeDriverPageState extends State<HomeDriverPage>
     );
   }
 
-  _buildDrawer() {
+  /*_buildDrawer() {
     final String image = 'assets/images/driver.jpeg';
     return ClipPath(
       clipper: OvalRightBorderClipper(),
@@ -431,7 +432,7 @@ class _HomeDriverPageState extends State<HomeDriverPage>
                     ],
                   )),
                   SizedBox(height: 30.0),
-                  _buildRow(Mdi.walletOutline, "My Wallet", goid: 1),
+                  _buildRow(Mdi.walletOutline, "بسم الله", goid: 1),
                   _buildDivider(),
                   _buildRow(Mdi.history, "History", goid: 2),
                   _buildDivider(),
@@ -441,6 +442,94 @@ class _HomeDriverPageState extends State<HomeDriverPage>
                   _buildRow(Mdi.cogs, "Setting", goid: 4),
                   _buildDivider(),
                   _buildRow(Icons.headset, "Support", goid: 5),
+                  _buildDivider(),
+                  Container(
+                      color: UIData.PrimaryColor,
+                      child: _buildRow(
+                          Icons.directions_car, "New booking (Demo)",
+                          goid: 100)),
+                  _buildDivider(),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }*/
+  _buildDrawer() {
+    final String image = 'assets/images/driver.jpeg';
+    return ClipPath(
+      clipper: OvalRightBorderClipper(),
+      child: Drawer(
+        child: Container(
+          padding: const EdgeInsets.only(left: 20.0, right: 16.0),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [BoxShadow(color: Colors.black45)]),
+          width: 300,
+          child: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.power_settings_new,
+                        color: UIData.PrimaryColor,
+                      ),
+                      onPressed: () {
+                        // _xacnhanthoat();
+                      },
+                    ),
+                  ),
+                  Container(
+                    height: 90,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: UIData.PrimaryColor,
+                    ),
+                    child: CircleAvatar(
+                      radius: 40,
+                      backgroundImage: ExactAssetImage(image),
+                    ),
+                  ),
+                  SizedBox(height: 5.0),
+                  Text(
+                    "حسن الحلاق",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Container(
+                    //height: 30,
+                    //width: 150,
+                    //color: Colors.green,
+                    // alignment: Alignment.topCenter,
+                    /*child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      Icons.star,
+                      color: UIData.PrimaryColor,
+                    ),
+                    Text("Gold member")
+                  ],
+                )*/),
+                  SizedBox(height: 30.0),
+                  _buildRow(FontAwesomeIcons.user, "الملف الشخصي", goid: 1),
+                  _buildDivider(),
+                  _buildRow(FontAwesomeIcons.fileAlt, "المستندات", goid: 2),
+                  _buildDivider(),
+                  _buildRow(FontAwesomeIcons.carAlt, "العجلة",
+                      showBadge: true, goid: 3),
+                  _buildDivider(),
+                  _buildRow(FontAwesomeIcons.creditCard, "محفظتي", goid: 4),
+                  _buildDivider(),
+                  _buildRow(Mdi.cogs, "اعدادات", goid: 5),
                   _buildDivider(),
                   Container(
                       color: UIData.PrimaryColor,
