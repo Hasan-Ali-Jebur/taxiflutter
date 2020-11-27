@@ -201,12 +201,15 @@ class _HomeDriverPageState extends State<HomeDriverPage>
               trailing: Column(
                 children: <Widget>[
                   Text(
-                    "\$325",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                    "25",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19, fontFamily: 'Roboto'),
                   ),
-                  Text(
-                    "Earned",
-                    style: TextStyle(color: Colors.grey),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 6),
+                    child: Text(
+                      "يوماً",
+                      style: TextStyle(fontSize:18, color: Colors.grey),
+                    ),
                   ),
                 ],
               ),
