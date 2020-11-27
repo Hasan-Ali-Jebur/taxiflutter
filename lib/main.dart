@@ -19,6 +19,7 @@ import 'page/testmap.dart';
 import 'page/testprovider.dart';
 import 'page/verifyotp.dart';
 import 'widget/loader2.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(MyApp());
