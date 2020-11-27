@@ -62,13 +62,13 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-//   checkIfAuthenticated().then((success) {
-//      if (success) {
-//        Navigator.pushReplacementNamed(context, '/home');
-//      } else {
-//        Navigator.pushReplacementNamed(context, '/login');
-//      }
-//    });
+  checkIfAuthenticated().then((success) {
+     if (success) {
+       Navigator.pushReplacementNamed(context, '/home');
+     } else {
+       Navigator.pushReplacementNamed(context, '/login');
+     }
+   });
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: <Widget>[
