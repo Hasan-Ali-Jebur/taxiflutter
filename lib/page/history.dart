@@ -152,7 +152,7 @@ class _HistoryPageState extends State<HistoryPage> {
         body: Column(
           //mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            DatePickerTimeline(
+            DatePicker(
               DateTime.now(),
               onDateChange: (date) {
                 // New date selected

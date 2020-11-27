@@ -89,7 +89,7 @@ class _driverCommingPageState extends State<driverCommingPage> {
                               "Taxi driver",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            RatingBar(
+                            RatingBar.builder(
                               initialRating: 4,
                               itemSize: 20.0,
                               direction: Axis.horizontal,
