@@ -39,6 +39,7 @@ class WalkthroughScreen extends StatefulWidget {
 }
 
 class _WalkthroughScreenState extends State<WalkthroughScreen> {
+  Future<int> _firstTime;
   List<String> images = [
     'assets/images/a1.png',
     'assets/images/a2.png',
@@ -108,10 +109,10 @@ class _WalkthroughScreenState extends State<WalkthroughScreen> {
               MyButton(
                   caption: "GET STARTED",
                   onPressed: () {
-                    print("Tapped Me");
+                    setFirstTime(false);
                     Navigator.of(context)
                         .pushReplacement(new MaterialPageRoute(builder: (context) {
-                      return new LetGoPage();
+                      return new LoginSignupPage();
                     }));
                   })
             ],
@@ -144,13 +145,18 @@ class _WalkthroughScreenState extends State<WalkthroughScreen> {
     return widgets;
   }
 
+
+
   _skip() {
-    print("click");
+    setFirstTime(false);
     Navigator.of(context)
         .pushReplacement(new MaterialPageRoute(builder: (context) {
-      return new LetGoPage();
+      return new LoginSignupPage();
     }));
   }
 
-
+  setFirstTime(key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isFirstTime', key);
+  }
 }

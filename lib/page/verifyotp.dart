@@ -44,12 +44,12 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "Phone Vertification",
+                "تأكيد رقم الهاتف",
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0,16,0,16),
-                child: Text("Enter your OTP code here"),
+                child: Text("ادخل كود SMS هنا"),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 40, 20, 50),
@@ -72,7 +72,7 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
                 children: <Widget>[
                   Expanded(
                     child: MyButton(
-                        caption: "VERIFY NOW",
+                        caption: "تأكيد الان",
                         onPressed: () {
                           Navigator.pushReplacementNamed(context, '/home');
                         }),

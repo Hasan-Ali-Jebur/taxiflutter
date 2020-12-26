@@ -13,7 +13,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  Country _selected = Country.VN;
+  Country _selected = Country.IQ;
   final TextEditingController textEditingController =
       new TextEditingController();
 
@@ -25,6 +25,38 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  Widget _submitButton() {
+    return InkWell(
+        onTap: () {
+          Navigator.of(context).push(
+              new MaterialPageRoute(builder: (context) {
+                return new VerifyOTPPage();
+              }));
+        },
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.symmetric(vertical: 15),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                    color: Colors.grey.shade200,
+                    offset: Offset(2, 4),
+                    blurRadius: 5,
+                    spreadRadius: 2)
+              ],
+              gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [Color(0xFFFFD328), Color(0xFFFF8901)])),
+          child: Text(
+            'التالي',
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
+        ));
   }
 
   @override
@@ -40,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
             fit: BoxFit.fill,
           ),
           Container(
-            height: 430,
+            height: 600,
             padding: EdgeInsets.only(
                 top: 160.0, left: 10.0, right: 10.0, bottom: 10.0),
             child: Card(
@@ -51,16 +83,16 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Row(children: <Widget>[
-                      Text("Login",
+                      Text("دخول",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 32)),
                       Text(
-                        " with your ",
+                        " بأستخدام ",
                         style: TextStyle(fontSize: 30),
                       ),
                     ]),
                     Text(
-                      "phone number",
+                      "رقم الهاتف",
                       style: TextStyle(fontSize: 30),
                     ),
                     SizedBox(
@@ -69,16 +101,6 @@ class _LoginPageState extends State<LoginPage> {
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
-                        CountryPicker(
-                          showDialingCode: true,
-                          showName: false,
-                          onChanged: (Country country) {
-                            setState(() {
-                              _selected = country;
-                            });
-                          },
-                          selectedCountry: _selected,
-                        ),
                         Flexible(
                           child: TextField(
                             keyboardType: TextInputType.phone,
@@ -94,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                                     color: Colors.black26,
                                   ),
                                 ),
-                                hintText: "Phone number",
+                                hintText: "رقم الهاتف",
                                 hintStyle: TextStyle(color: Colors.black26),
                                 //filled: true,
                                 //fillColor: Colors.white,
@@ -109,12 +131,25 @@ class _LoginPageState extends State<LoginPage> {
                                     horizontal: 8.0, vertical: 8.0)),
                           ),
                         ),
+                        CountryPicker(
+                          showFlag: false,
+                          showDialingCode: true,
+                          showName: true,
+                          /*onChanged: (Country country) {
+                            setState(() {
+                              print(_selected.name);
+                              _selected = country;
+                            });
+                          },*/
+                          selectedCountry: _selected,
+                        ),
                       ],
                     ),
                     SizedBox(
-                      height: 16,
+                      height: 20,
                     ),
-                    SizedBox(
+                    _submitButton()
+                    /*SizedBox(
                       width: double.infinity,
                       child: FlatButton(
                         shape: RoundedRectangleBorder(
@@ -126,17 +161,18 @@ class _LoginPageState extends State<LoginPage> {
                         padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
                         splashColor: UIData.Bassic,
                         onPressed: () => {
+
                           Navigator.of(context).push(
                               new MaterialPageRoute(builder: (context) {
                                 return new VerifyOTPPage();
                               }))
                         },
                         child: Text(
-                          "NEXT",
+                          "التالي",
                           style: TextStyle(fontSize: 20.0),
                         ),
                       ),
-                    ),
+                    ),*/
                   ],
                 ),
               ),
