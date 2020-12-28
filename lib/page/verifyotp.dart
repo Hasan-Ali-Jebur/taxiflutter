@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_verification_code_input/flutter_verification_code_input.dart';
 import 'package:uiflutterjubertaxi/uidata.dart';
@@ -13,9 +14,42 @@ class VerifyOTPPage extends StatefulWidget {
 }
 
 class _VerifyOTPPageState extends State<VerifyOTPPage> {
+  String _verificationCode;
+  _verifyPhone() async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: '+9647733639950',
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await FirebaseAuth.instance
+              .signInWithCredential(credential)
+              .then((value) async {
+            if (value.user != null) {
+              /*Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => Home()),
+                      (route) => false);*/
+            }
+          });
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          print(e.message);
+        },
+        codeSent: (String verficationID, int resendToken) {
+          setState(() {
+            _verificationCode = verficationID;
+          });
+        },
+        codeAutoRetrievalTimeout: (String verificationID) {
+          setState(() {
+            _verificationCode = verificationID;
+          });
+        },
+        timeout: Duration(seconds: 120));
+  }
+
   @override
   void initState() {
     super.initState();
+    _verifyPhone();
   }
 
   @override
@@ -74,7 +108,7 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
                     child: MyButton(
                         caption: "تأكيد الان",
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, '/home');
+                          Navigator.pushReplacementNamed(context, '/signup');
                         }),
                   ),
                 ],

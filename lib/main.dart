@@ -9,6 +9,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'page/loginPage.dart';
 import 'welcomePage.dart';
+import 'page/mainsignup.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         '/intro': (context) => WalkthroughScreen(),
         '/home': (context) => HomeDriverPage(),
         '/welcome': (context) => WelcomePage(),
+        '/signup': (context) => SignUpPage(),
       },
     );
   }
